@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Wallet, BookOpen, Trophy, Coins, Users, Star, ArrowRight, CheckCircle } from 'lucide-react'
+import { Wallet, BookOpen, ArrowRight, CheckCircle } from 'lucide-react'
 
 export default function Home() {
   const [walletConnected, setWalletConnected] = useState(false)
