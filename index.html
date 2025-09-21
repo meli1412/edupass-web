@@ -1,10 +1,346 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Mi primera página</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPass - EDUX Token</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js"></script>
 </head>
-<body>
-  <h1>¡Hola mundo!</h1>
-  <p>Esta es mi primera página publicada con GitHub Pages.</p>
+<body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <!-- Barra de navegación -->
+    <nav class="p-6 backdrop-blur-sm bg-black/10">
+        <div class="flex justify-between items-center max-w-7xl mx-auto">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
+                    <i data-lucide="book-open" class="w-7 h-7 text-white"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-bold text-white">EduPass</span>
+                    <div class="text-sm text-purple-300 font-medium">EDUX Token</div>
+                </div>
+            </div>
+
+            <!-- Menú de navegación -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-gray-300 hover:text-white transition-colors">Características</a>
+                <a href="#tokenomics" class="text-gray-300 hover:text-white transition-colors">Tokenomics</a>
+                <a href="#roadmap" class="text-gray-300 hover:text-white transition-colors">Roadmap</a>
+            </div>
+
+            <!-- Botón de wallet -->
+            <div>
+                <button 
+                    id="connectWallet"
+                    class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-all transform hover:scale-105 shadow-lg">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                    <span class="font-semibold">Conectar Wallet</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="text-center mb-20">
+            <div class="mb-6">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text text-sm font-semibold tracking-wider uppercase">
+                    🚀 El Futuro de la Educación
+                </span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-bold text-white mb-8 leading-tight">
+                EduPass
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mt-2">
+                    EDUX
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                🎓 La primera plataforma educativa descentralizada donde puedes <strong class="text-white">aprender</strong>, 
+                <strong class="text-white">certificarte</strong> y <strong class="text-white">ganar tokens EDUX</strong>. 
+                Únete a la revolución de la educación Web3.
+            </p>
+
+            <!-- Botones principales -->
+            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+                <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-3">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                    <span>Explorar Cursos</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+                <button class="border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all flex items-center justify-center space-x-3 backdrop-blur-sm">
+                    <i data-lucide="star" class="w-5 h-5"></i>
+                    <span>Ver Whitepaper</span>
+                </button>
+            </div>
+
+            <!-- Stats rápidos -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-400 mb-2">100M</div>
+                    <div class="text-sm text-gray-400">Tokens EDUX</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-pink-400 mb-2">10K+</div>
+                    <div class="text-sm text-gray-400">Estudiantes</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">500+</div>
+                    <div class="text-sm text-gray-400">Cursos</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-400 mb-2">95%</div>
+                    <div class="text-sm text-gray-400">Satisfacción</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Características principales -->
+        <section id="features" class="mb-24">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    ¿Por qué elegir EduPass?
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Revolucionamos la educación combinando aprendizaje de calidad con incentivos de blockchain
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Característica 1 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-purple-500/50 group">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mx-auto mb-8 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                        <i data-lucide="book-open" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Cursos Premium</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Accede a contenido educativo de alta calidad sobre blockchain, 
+                        DeFi, NFTs y Web3. Creado por expertos de la industria.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• Contenido actualizado constantemente</li>
+                        <li>• Certificaciones verificables</li>
+                        <li>• Proyectos prácticos</li>
+                    </ul>
+                </div>
+
+                <!-- Característica 2 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-pink-500/50 group">
+                    <div class="w-20 h-20 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mx-auto mb-8 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                        <i data-lucide="trophy" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Certificados NFT</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Obtén certificados únicos y verificables en blockchain. 
+                        Demuestra tus habilidades con NFTs auténticos y transferibles.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• Verificación instantánea</li>
+                        <li>• Reconocimiento global</li>
+                        <li>• Valor de mercado</li>
+                    </ul>
+                </div>
+
+                <!-- Característica 3 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-green-500/50 group">
+                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mx-auto mb-8 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                        <i data-lucide="coins" class="w-10 h-10 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Gana EDUX</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Recibe recompensas por completar cursos, participar en la 
+                        comunidad, ayudar a otros estudiantes y crear contenido.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>• Recompensas por aprender</li>
+                        <li>• Staking con rendimientos</li>
+                        <li>• Gobernanza de la plataforma</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tokenomics -->
+        <section id="tokenomics" class="mb-24">
+            <div class="bg-white/5 backdrop-blur-lg rounded-3xl p-12 border border-white/10">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-white mb-6">
+                        💎 Tokenomics EDUX
+                    </h2>
+                    <p class="text-xl text-gray-300">
+                        Diseño económico sostenible y equitativo
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Información técnica -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">📊 Detalles Técnicos</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                <span class="text-gray-300">Nombre:</span>
+                                <span class="text-white font-bold">EduPass</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                <span class="text-gray-300">Símbolo:</span>
+                                <span class="text-white font-bold">EDUX</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                <span class="text-gray-300">Red:</span>
+                                <span class="text-white font-bold">Polygon</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                <span class="text-gray-300">Tipo:</span>
+                                <span class="text-white font-bold">ERC-20</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                <span class="text-gray-300">Suministro:</span>
+                                <span class="text-white font-bold">100M EDUX</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Distribución -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">🎯 Distribución</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-purple-500/10 rounded-xl border border-purple-500/20">
+                                <span class="text-gray-300">Airdrops (Nuevos usuarios)</span>
+                                <span class="text-purple-400 font-bold">40%</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-pink-500/10 rounded-xl border border-pink-500/20">
+                                <span class="text-gray-300">Staking (Usuarios activos)</span>
+                                <span class="text-pink-400 font-bold">30%</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+                                <span class="text-gray-300">Venta directa</span>
+                                <span class="text-blue-400 font-bold">20%</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-green-500/10 rounded-xl border border-green-500/20">
+                                <span class="text-gray-300">Equipo de desarrollo</span>
+                                <span class="text-green-400 font-bold">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-3xl p-12 border border-purple-500/20">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    🚀 ¿Listo para revolucionar tu educación?
+                </h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Únete a miles de estudiantes que ya están ganando mientras aprenden sobre Web3
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                        <span>Unirse a la Comunidad</span>
+                    </button>
+                    <button class="border border-white/20 text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl font-bold transition-all flex items-center justify-center space-x-2">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                        <span>Comenzar Ahora</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Logo y descripción -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center">
+                            <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold text-white">EduPass</span>
+                            <div class="text-sm text-purple-300">EDUX Token</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Revolucionando la educación con blockchain y Web3. 
+                        Aprende, certifícate y gana tokens en la primera plataforma educativa descentralizada.
+                    </p>
+                </div>
+
+                <!-- Enlaces -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Plataforma</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Cursos</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Certificaciones</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Staking</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Gobernanza</a></li>
+                    </ul>
+                </div>
+
+                <!-- Comunidad -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Comunidad</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Discord</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Telegram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-400 text-sm">
+                    © 2025 EduPass. Todos los derechos reservados.
+                </div>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Política de Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Términos de Uso</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Documentos Legales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar los iconos de Lucide
+        lucide.createIcons();
+
+        // Funcionalidad del botón de conectar wallet
+        document.getElementById('connectWallet').addEventListener('click', async function() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({
+                        method: 'eth_requestAccounts'
+                    });
+                    
+                    if (accounts.length > 0) {
+                        const address = accounts[0];
+                        const shortAddress = address.slice(0, 6) + '...' + address.slice(-4);
+                        
+                        this.innerHTML = `
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            <span class="font-medium">${shortAddress}</span>
+                        `;
+                        this.className = 'bg-green-600/20 border border-green-500 text-green-400 px-6 py-3 rounded-xl flex items-center space-x-3 backdrop-blur-sm';
+                        
+                        // Reinicializar iconos después del cambio
+                        lucide.createIcons();
+                    }
+                } catch (error) {
+                    console.error('Error conectando wallet:', error);
+                    alert('Error al conectar la wallet');
+                }
+            } else {
+                alert('Por favor instala MetaMask para conectar tu wallet');
+            }
+        });
+    </script>
 </body>
 </html>
