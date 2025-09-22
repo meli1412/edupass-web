@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EduPass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <!-- Navegación -->
+    <nav class="bg-black/20 backdrop-blur-sm p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center">
+                    <span class="text-xl">📚</span>
+                </div>
+                <div>
+                    <span class="text-xl font-bold text-white">EduPass</span>
+                    <div class="text-sm text-purple-300">Dashboard</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-white">Inicio</a>
+                <a href="#" class="text-white font-semibold">Dashboard</a>
+                <div id="walletInfo" class="bg-green-600/20 border border-green-500 text-green-400 px-4 py-2 rounded-lg text-sm">
+                    <span id="walletAddress">0x1234...5678</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Header del Dashboard -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">Mi Dashboard</h1>
+            <p class="text-gray-300">Bienvenido de vuelta! Aquí puedes ver tu progreso y gestionar tus EDUX tokens.</p>
+        </div>
+
+        <!-- Cards de Estadísticas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Balance EDUX -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Balance EDUX</h3>
+                    <span class="text-2xl">💎</span>
+                </div>
+                <div class="text-3xl font-bold text-purple-400 mb-2" id="eduxBalance">1,250</div>
+                <div class="text-sm text-gray-400">+50 últimas 24h</div>
+            </div>
+
+            <!-- Cursos Completados -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Cursos Completados</h3>
+                    <span class="text-2xl">🎓</span>
+                </div>
+                <div class="text-3xl font-bold text-blue-400 mb-2" id="coursesCompleted">3</div>
+                <div class="text-sm text-gray-400">de 12 disponibles</div>
+            </div>
+
+            <!-- Certificados NFT -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Certificados NFT</h3>
+                    <span class="text-2xl">🏆</span>
+                </div>
+                <div class="text-3xl font-bold text-green-400 mb-2" id="nftCertificates">2</div>
+                <div class="text-sm text-gray-400">Valor total: 0.8 ETH</div>
+            </div>
+
+            <!-- Staking Activo -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Staking Activo</h3>
+                    <span class="text-2xl">⚡</span>
+                </div>
+                <div class="text-3xl font-bold text-yellow-400 mb-2" id="stakingAmount">500</div>
+                <div class="text-sm text-gray-400">APY: 12%</div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Panel Principal -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Progreso de Cursos -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                    <h2 class="text-xl font-bold text-white mb-6">Mis Cursos</h2>
+                    <div class="space-y-4" id="coursesContainer">
+                        <!-- Curso 1 -->
+                        <div class="bg-white/5 rounded-lg p-4 border border-white/10">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 class="text-white font-semibold">Introducción a Blockchain</h3>
+                                    <p class="text-gray-400 text-sm">Fundamentos de la tecnología blockchain</p>
+                                </div>
+                                <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">Completado</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mb-2">
+                                <div class="bg-green-500 h-2 rounded-full w-full"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">100% completado</span>
+                                <span class="text-green-400">+50 EDUX</span>
+                            </div>
+                        </div>
+
+                        <!-- Curso 2 -->
+                        <div class="bg-white/5 rounded-lg p-4 border border-white/10">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 class="text-white font-semibold">DeFi Avanzado</h3>
+                                    <p class="text-gray-400 text-sm">Finanzas descentralizadas y protocolos</p>
+                                </div>
+                                <span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">En progreso</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mb-2">
+                                <div class="bg-blue-500 h-2 rounded-full w-3/4"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">75% completado</span>
+                                <span class="text-blue-400">Estimado: +100 EDUX</span>
+                            </div>
+                        </div>
+
+                        <!-- Curso 3 -->
+                        <div class="bg-white/5 rounded-lg p-4 border border-white/10">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 class="text-white font-semibold">NFT Development</h3>
+                                    <p class="text-gray-400 text-sm">Crear y desarrollar NFTs</p>
+                                </div>
+                                <span class="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Disponible</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2 mb-2">
+                                <div class="bg-gray-600 h-2 rounded-full w-0"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">0% completado</span>
+                                <span class="text-yellow-400">Costo: 150 EDUX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Actividad -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                    <h2 class="text-xl font-bold text-white mb-6">Actividad EDUX (Últimos 7 días)</h2>
+                    <canvas id="activityChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Panel Lateral -->
+            <div class="space-y-6">
+                <!-- Recompensas Disponibles -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                    <h2 class="text-xl font-bold text-white mb-4">Recompensas Disponibles</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                            <div>
+                                <div class="text-white font-medium">Staking Rewards</div>
+                                <div class="text-green-400 text-sm">+25 EDUX</div>
+                            </div>
+                            <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+                                Reclamar
+                            </button>
+                        </div>
+                        
+                        <div class="flex justify-between items-center p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                            <div>
+                                <div class="text-white font-medium">Bonus Diario</div>
+                                <div class="text-blue-400 text-sm">+10 EDUX</div>
+                            </div>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                Reclamar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificados NFT -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                    <h2 class="text-xl font-bold text-white mb-4">Mis Certificados NFT</h2>
+                    <div class="space-y-3">
+                        <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                                    <span class="text-xl">🎓</span>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium text-sm">Blockchain Expert</div>
+                                    <div class="text-gray-400 text-xs">Certificado #001</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                                    <span class="text-xl">💎</span>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium text-sm">DeFi Pioneer</div>
+                                    <div class="text-gray-400 text-xs">Certificado #002</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculadora de Staking -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                    <h2 class="text-xl font-bold text-white mb-4">Calculadora Staking</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-300 text-sm mb-2">Cantidad a Stakear</label>
+                            <input type="number" id="stakingInput" value="100" class="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-white" placeholder="Cantidad EDUX">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 text-sm mb-2">Período (días)</label>
+                            <select id="stakingPeriod" class="w-full bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-white">
+                                <option value="30">30 días (10% APY)</option>
+                                <option value="90">90 días (12% APY)</option>
+                                <option value="365">365 días (15% APY)</option>
+                            </select>
+                        </div>
+                        <div class="bg-purple-500/10 rounded-lg p-3 border border-purple-500/20">
+                            <div class="text-center">
+                                <div class="text-purple-400 font-bold text-lg" id="stakingReward">12.33</div>
+                                <div class="text-gray-400 text-sm">EDUX estimados</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg font-semibold">
+                            Iniciar Staking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos simulados del usuario
+        let userData = {
+            eduxBalance: 1250,
+            coursesCompleted: 3,
+            nftCertificates: 2,
+            stakingAmount: 500,
+            walletAddress: "0x1234...5678"
+        };
+
+        // Actualizar datos en tiempo real
+        function updateDashboard() {
+            // Simular cambios pequeños en el balance
+            userData.eduxBalance += Math.floor(Math.random() * 5) - 2;
+            document.getElementById('eduxBalance').textContent = userData.eduxBalance.toLocaleString();
+        }
+
+        // Calculadora de staking
+        function updateStakingCalculator() {
+            const amount = parseFloat(document.getElementById('stakingInput').value) || 0;
+            const period = parseInt(document.getElementById('stakingPeriod').value);
+            let apy;
+            
+            switch(period) {
+                case 30: apy = 0.10; break;
+                case 90: apy = 0.12; break;
+                case 365: apy = 0.15; break;
+                default: apy = 0.10;
+            }
+            
+            const reward = (amount * apy * period) / 365;
+            document.getElementById('stakingReward').textContent = reward.toFixed(2);
+        }
+
+        // Crear gráfico de actividad
+        function createActivityChart() {
+            const ctx = document.getElementById('activityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [{
+                        label: 'EDUX Ganados',
+                        data: [12, 19, 3, 5, 2, 3, 15],
+                        borderColor: '#a855f7',
+                        backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listeners
+        document.getElementById('stakingInput').addEventListener('input', updateStakingCalculator);
+        document.getElementById('stakingPeriod').addEventListener('change', updateStakingCalculator);
+
+        // Inicializar
+        updateStakingCalculator();
+        createActivityChart();
+        
+        // Actualizar datos cada 30 segundos
+        setInterval(updateDashboard, 30000);
+
+        // Simular notificaciones
+        setTimeout(() => {
+            alert('¡Nueva recompensa disponible! +15 EDUX por actividad diaria.');
+        }, 5000);
+    </script>
+</body>
+</html>
