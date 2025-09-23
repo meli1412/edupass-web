@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos - EduPass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <!-- Navegación -->
+    <nav class="bg-black/20 backdrop-blur-sm p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center">
+                    <span class="text-xl">📚</span>
+                </div>
+                <div>
+                    <span class="text-xl font-bold text-white">EduPass</span>
+                    <div class="text-sm text-purple-300">Cursos</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Inicio</a>
+                <a href="dashboard.html" class="text-gray-300 hover:text-white transition-colors">Dashboard</a>
+                <a href="#" class="text-white font-semibold">Cursos</a>
+                <div class="bg-purple-600/20 border border-purple-500 text-purple-400 px-4 py-2 rounded-lg text-sm">
+                    <span id="userBalance">1,250 EDUX</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-4">Catálogo de Cursos</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Aprende sobre blockchain, DeFi, NFTs y más. Gana tokens EDUX completando cursos y obtén certificados NFT únicos.
+            </p>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8 border border-white/20">
+            <div class="flex flex-wrap gap-4 items-center justify-between">
+                <div class="flex flex-wrap gap-4">
+                    <select id="levelFilter" class="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
+                        <option value="todos">Todos los niveles</option>
+                        <option value="principiante">Principiante</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="avanzado">Avanzado</option>
+                    </select>
+                    
+                    <select id="categoryFilter" class="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
+                        <option value="todos">Todas las categorías</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="defi">DeFi</option>
+                        <option value="nft">NFTs</option>
+                        <option value="trading">Trading</option>
+                    </select>
+
+                    <select id="priceFilter" class="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
+                        <option value="todos">Todos los precios</option>
+                        <option value="gratis">Gratis</option>
+                        <option value="0-100">0-100 EDUX</option>
+                        <option value="100-300">100-300 EDUX</option>
+                        <option value="300+">300+ EDUX</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-300">Mostrar:</span>
+                    <button id="gridView" class="p-2 bg-purple-600 text-white rounded-lg">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+                        </svg>
+                    </button>
+                    <button id="listView" class="p-2 bg-white/10 text-gray-400 rounded-lg">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cursos Grid -->
+        <div id="coursesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Los cursos se cargarán aquí dinámicamente -->
+        </div>
+
+        <!-- Paginación -->
+        <div class="flex justify-center mt-12">
+            <div class="flex space-x-2">
+                <button class="px-4 py-2 bg-white/10 text-gray-400 rounded-lg">Anterior</button>
+                <button class="px-4 py-2 bg-purple-600 text-white rounded-lg">1</button>
+                <button class="px-4 py-2 bg-white/10 text-gray-300 rounded-lg hover:bg-white/20">2</button>
+                <button class="px-4 py-2 bg-white/10 text-gray-300 rounded-lg hover:bg-white/20">3</button>
+                <button class="px-4 py-2 bg-white/10 text-gray-300 rounded-lg hover:bg-white/20">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Curso -->
+    <div id="courseModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl w-full mx-4 border border-white/20">
+            <div class="flex justify-between items-start mb-6">
+                <h2 id="modalTitle" class="text-3xl font-bold text-white"></h2>
+                <button id="closeModal" class="text-gray-400 hover:text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="modalContent" class="space-y-6">
+                <!-- Contenido del modal se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificación -->
+    <div id="toast" class="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script>
+        // Base de datos de cursos simulada
+        const courses = [
+            {
+                id: 1,
+                title: "Introducción a Blockchain",
+                description: "Aprende los fundamentos de la tecnología blockchain desde cero",
+                instructor: "Dr. María González",
+                level: "principiante",
+                category: "blockchain",
+                price: 0,
+                duration: "4 semanas",
+                lessons: 12,
+                students: 2341,
+                rating: 4.8,
+                image: "🔗",
+                status: "disponible",
+                features: ["Certificado NFT", "Acceso de por vida", "Foro de discusión"],
+                syllabus: [
+                    "¿Qué es blockchain?",
+                    "Criptografía básica",
+                    "Consenso y minería",
+                    "Aplicaciones prácticas"
+                ]
+            },
+            {
+                id: 2,
+                title: "DeFi Mastery",
+                description: "Domina las finanzas descentralizadas y los protocolos más importantes",
+                instructor: "Carlos Ruiz",
+                level: "avanzado",
+                category: "defi",
+                price: 250,
+                duration: "6 semanas",
+                lessons: 18,
+                students: 892,
+                rating: 4.9,
+                image: "💰",
+                status: "disponible",
+                features: ["Proyectos reales", "Mentoring 1:1", "Certificado Premium"],
+                syllabus: [
+                    "Protocolos de lending",
+                    "AMMs y liquidez",
+                    "Yield farming",
+                    "Gestión de riesgos"
+                ]
+            },
+            {
+                id: 3,
+                title: "NFT Development",
+                description: "Crea y desarrolla NFTs desde la idea hasta el marketplace",
+                instructor: "Ana Martínez",
+                level: "intermedio",
+                category: "nft",
+                price: 150,
+                duration: "3 semanas",
+                lessons: 9,
+                students: 1205,
+                rating: 4.7,
+                image: "🎨",
+                status: "disponible",
+                features: ["Proyecto final", "Código fuente", "Networking"],
+                syllabus: [
+                    "Estándares ERC-721 y ERC-1155",
+                    "Metadatos y IPFS",
+                    "Smart contracts para NFTs",
+                    "Marketplace integration"
+                ]
+            },
+            {
+                id: 4,
+                title: "Trading Algorítmico",
+                description: "Desarrolla bots de trading y estrategias automatizadas",
+                instructor: "Roberto Silva",
+                level: "avanzado",
+                category: "trading",
+                price: 300,
+                duration: "8 semanas",
+                lessons: 24,
+                students: 567,
+                rating: 4.6,
+                image: "📊",
+                status: "disponible",
+                features: ["Bots reales", "Backtesting", "API keys"],
+                syllabus: [
+                    "Análisis técnico",
+                    "Python para trading",
+                    "APIs de exchanges",
+                    "Gestión de riesgo"
+                ]
+            },
+            {
+                id: 5,
+                title: "Web3 Frontend",
+                description: "Construye dApps modernas con React y Web3",
+                instructor: "Luis Hernández",
+                level: "intermedio",
+                category: "blockchain",
+                price: 200,
+                duration: "5 semanas",
+                lessons: 15,
+                students: 1456,
+                rating: 4.8,
+                image: "⚡",
+                status: "disponible",
+                features: ["Portfolio projects", "GitHub repos", "Job assistance"],
+                syllabus: [
+                    "React hooks para Web3",
+                    "Wallet integration",
+                    "Smart contract interaction",
+                    "UI/UX para dApps"
+                ]
+            },
+            {
+                id: 6,
+                title: "Solidity Avanzado",
+                description: "Conviértete en experto en desarrollo de smart contracts",
+                instructor: "Patricia López",
+                level: "avanzado",
+                category: "blockchain",
+                price: 350,
+                duration: "10 semanas",
+                lessons: 30,
+                students: 423,
+                rating: 4.9,
+                image: "⚙️",
+                status: "próximamente",
+                features: ["Auditorías de código", "Gas optimization", "Security patterns"],
+                syllabus: [
+                    "Patterns avanzados",
+                    "Optimización de gas",
+                    "Seguridad en contratos",
+                    "Testing y deployment"
+                ]
+            }
+        ];
+
+        let userBalance = 1250;
+        let filteredCourses = courses;
+
+        // Renderizar cursos
+        function renderCourses() {
+            const container = document.getElementById('coursesContainer');
+            container.innerHTML = '';
+
+            filteredCourses.forEach(course => {
+                const courseCard = createCourseCard(course);
+                container.appendChild(courseCard);
+            });
+        }
+
+        // Crear tarjeta de curso
+        function createCourseCard(course) {
+            const div = document.createElement('div');
+            div.className = 'bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden border border-white/20 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105';
+            
+            const statusColor = course.status === 'disponible' ? 'green' : 'yellow';
+            const statusText = course.status === 'disponible' ? 'Disponible' : 'Próximamente';
+            const priceText = course.price === 0 ? 'GRATIS' : `${course.price} EDUX`;
+            
+            div.innerHTML = `
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 h-48 flex items-center justify-center">
+                        <span class="text-6xl">${course.image}</span>
+                    </div>
+                    <span class="absolute top-4 left-4 bg-${statusColor}-500/20 text-${statusColor}-400 px-2 py-1 rounded text-xs border border-${statusColor}-500/30">
+                        ${statusText}
+                    </span>
+                    <span class="absolute top-4 right-4 bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs border border-purple-500/30">
+                        ${course.level}
+                    </span>
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">${course.title}</h3>
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-2">${course.description}</p>
+                    
+                    <div class="flex items-center text-sm text-gray-400 mb-4">
+                        <span class="mr-4">👨‍🏫 ${course.instructor}</span>
+                        <span class="mr-4">⭐ ${course.rating}</span>
+                        <span>${course.students} estudiantes</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400 text-sm">${course.duration} • ${course.lessons} lecciones</span>
+                        <span class="text-2xl font-bold ${course.price === 0 ? 'text-green-400' : 'text-purple-400'}">${priceText}</span>
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        <button onclick="viewCourse(${course.id})" class="flex-1 bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg text-sm transition-colors">
+                            Ver detalles
+                        </button>
+                        <button onclick="enrollCourse(${course.id})" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg text-sm transition-colors ${course.status !== 'disponible' ? 'opacity-50 cursor-not-allowed' : ''}" ${course.status !== 'disponible' ? 'disabled' : ''}>
+                            ${course.price === 0 ? 'Inscribirme' : 'Comprar'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Ver detalles del curso
+        function viewCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            const modal = document.getElementById('courseModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = course.title;
+            content.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 h-48 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-8xl">${course.image}</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Instructor:</span>
+                                <span class="text-white">${course.instructor}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Duración:</span>
+                                <span class="text-white">${course.duration}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Lecciones:</span>
+                                <span class="text-white">${course.lessons}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Estudiantes:</span>
+                                <span class="text-white">${course.students}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Rating:</span>
+                                <span class="text-yellow-400">⭐ ${course.rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold text-white mb-3">Descripción</h4>
+                        <p class="text-gray-300 mb-4">${course.description}</p>
+                        
+                        <h4 class="text-lg font-semibold text-white mb-3">¿Qué aprenderás?</h4>
+                        <ul class="space-y-2 mb-4">
+                            ${course.syllabus.map(item => `<li class="text-gray-300 text-sm flex items-start"><span class="text-green-400 mr-2">✓</span>${item}</li>`).join('')}
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold text-white mb-3">Incluye</h4>
+                        <ul class="space-y-2 mb-6">
+                            ${course.features.map(feature => `<li class="text-gray-300 text-sm flex items-start"><span class="text-purple-400 mr-2">•</span>${feature}</li>`).join('')}
+                        </ul>
+                        
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                            <span class="text-2xl font-bold ${course.price === 0 ? 'text-green-400' : 'text-purple-400'}">
+                                ${course.price === 0 ? 'GRATIS' : `${course.price} EDUX`}
+                            </span>
+                            <button onclick="enrollCourse(${course.id})" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors ${course.status !== 'disponible' ? 'opacity-50 cursor-not-allowed' : ''}" ${course.status !== 'disponible' ? 'disabled' : ''}>
+                                ${course.price === 0 ? 'Inscribirme Gratis' : 'Comprar Curso'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // Inscribirse al curso
+        function enrollCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            
+            if (course.status !== 'disponible') {
+                showToast('Este curso aún no está disponible', 'error');
+                return;
+            }
+            
+            if (course.price > 0 && userBalance < course.price) {
+                showToast('Balance insuficiente de EDUX tokens', 'error');
+                return;
+            }
+            
+            // Simular inscripción
+            if (course.price > 0) {
+                userBalance -= course.price;
+                document.getElementById('userBalance').textContent = `${userBalance} EDUX`;
+            }
+            
+            showToast(`¡Te has inscrito exitosamente en "${course.title}"!`, 'success');
+            closeModal();
+        }
+
+        // Mostrar notificación
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white`;
+            toast.classList.remove('hidden');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('courseModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Filtros
+        function applyFilters() {
+            const levelFilter = document.getElementById('levelFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            
+            filteredCourses = courses.filter(course => {
+                let matches = true;
+                
+                if (levelFilter !== 'todos' && course.level !== levelFilter) matches = false;
+                if (categoryFilter !== 'todos' && course.category !== categoryFilter) matches = false;
+                
+                if (priceFilter !== 'todos') {
+                    switch(priceFilter) {
+                        case 'gratis': if (course.price !== 0) matches = false; break;
+                        case '0-100': if (course.price < 0 || course.price > 100) matches = false; break;
+                        case '100-300': if (course.price < 100 || course.price > 300) matches = false; break;
+                        case '300+': if (course.price < 300) matches = false; break;
+                    }
+                }
+                
+                return matches;
+            });
+            
+            renderCourses();
+        }
+
+        // Event listeners
+        document.getElementById('levelFilter').addEventListener('change', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('priceFilter').addEventListener('change', applyFilters);
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+
+        // Cerrar modal con escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Inicializar
+        renderCourses();
+    </script>
+</body>
+</html>
