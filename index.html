@@ -18,7 +18,18 @@
                     <div class="text-sm text-purple-300">EDUX Token</div>
                 </div>
             </div>
-            <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl">
+            
+            <!-- Menú de navegación agregado -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#tokenomics" class="text-gray-300 hover:text-white transition-colors">Tokenomics</a>
+                <a href="dashboard.html" class="text-gray-300 hover:text-white transition-colors">Dashboard</a>
+                <button onclick="connectWallet()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl">
+                    Conectar Wallet
+                </button>
+            </div>
+            
+            <!-- Botón móvil -->
+            <button onclick="connectWallet()" class="md:hidden bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl">
                 Conectar Wallet
             </button>
         </div>
@@ -36,6 +47,19 @@
             La primera plataforma educativa descentralizada donde puedes aprender, 
             certificarte y ganar tokens EDUX.
         </p>
+        
+        <!-- Botón principal modificado para ir al dashboard -->
+        <div class="mb-16">
+            <button onclick="window.location.href='dashboard.html'" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all transform hover:scale-105 shadow-2xl inline-flex items-center space-x-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+                <span>Ir al Dashboard</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
         
         <div class="grid grid-cols-4 gap-8 max-w-3xl mx-auto mb-20">
             <div class="text-center">
@@ -56,7 +80,7 @@
             </div>
         </div>
         
-        <div class="bg-white/10 rounded-3xl p-12">
+        <div id="tokenomics" class="bg-white/10 rounded-3xl p-12">
             <h2 class="text-4xl font-bold text-white mb-6">Tokenomics EDUX</h2>
             <div class="grid md:grid-cols-2 gap-8 text-left">
                 <div>
@@ -80,5 +104,23 @@
             </div>
         </div>
     </main>
+
+    <!-- Botón flotante para acceso rápido al dashboard -->
+    <div class="fixed bottom-6 right-6">
+        <button onclick="window.location.href='dashboard.html'" class="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- JavaScript para funcionalidad de wallet -->
+    <script>
+        function connectWallet() {
+            // Simular conexión de wallet
+            alert('Conectando wallet... (Demo)');
+            // Aquí puedes agregar lógica real de MetaMask más tarde
+        }
+    </script>
 </body>
 </html>
